@@ -1,6 +1,6 @@
 package collections00
 
-object main {
+object rnaMain {
 
   def main(args: Array[String]): Unit = {
     val rna00 = RNA(A, U, G, G, C)
