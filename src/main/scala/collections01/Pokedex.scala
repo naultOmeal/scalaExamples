@@ -38,7 +38,7 @@ class Pokedex(val entries: Set[Int], val length: Int) extends SortedSet[Pokemon]
   // This is VERY important and needs to be optimized for each implementation
   override def keysIteratorFrom(start: Pokemon): Iterator[Pokemon] = new Iterator[Pokemon]{
     private var current = Pokemon.toInt(start)
-    private val end = entries.max + 1 // need the largest number within the list
+    private val end = if (entries.isEmpty) 0 else entries.max + 1 // need the largest number within the list
     def hasNext: Boolean = {
       // keep looking until we find the next element or run out of set
       while( current != end && !self.contains(Pokemon.fromInt(current))) current += 1
