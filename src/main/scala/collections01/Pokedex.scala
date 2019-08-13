@@ -2,7 +2,7 @@ package collections01
 
 import collection.{Iterator, SortedSet, SortedSetLike, mutable}
 import collection.generic.CanBuildFrom
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, StringBuilder}
 
 class Pokedex(val entries: Set[Int], val length: Int) extends SortedSet[Pokemon] with SortedSetLike[Pokemon, Pokedex]{ self =>
   import Pokedex._
@@ -35,21 +35,37 @@ class Pokedex(val entries: Set[Int], val length: Int) extends SortedSet[Pokemon]
 
   override def iterator: Iterator[Pokemon] = iteratorFrom(Pokemon.fromInt(0))
 
+  // This is VERY important and needs to be optimized for each implementation
   override def keysIteratorFrom(start: Pokemon): Iterator[Pokemon] = new Iterator[Pokemon]{
     private var current = Pokemon.toInt(start)
-    private val end = self.length
+    private val end = entries.max + 1 // need the largest number within the list
     def hasNext: Boolean = {
-      while (current != end && self.contains(Pokemon.fromInt(current))) current += 1
+      // keep looking until we find the next element or run out of set
+      while( current != end && !self.contains(Pokemon.fromInt(current))) current += 1
       current != end
     }
     def next(): Pokemon = {
-      println(current)
       if (hasNext) {
         val r = current; current += 1; Pokemon.fromInt(r)
       }
       else Iterator.empty.next()
     }
   }
+
+//  override def addString(sb: StringBuilder, start: String, sep: String, end: String) = {
+//    sb append start
+//    var pre = ""
+//    val max = nwords * WordLength
+//    var i = 0
+//    while (i != max) {
+//      if (contains(i)) {
+//        sb append pre append i
+//        pre = sep
+//      }
+//      i += 1
+//    }
+//    sb append end
+//  }
 
   override def stringPrefix = "Pokedex"
 }

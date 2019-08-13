@@ -4,11 +4,11 @@ object PokeMain {
 
   def main(args: Array[String]): Unit = {
     val pd00 = Pokedex(Bulbasaur)
-    println(pd00, pd00.entries)
+    println("Pokedex01   = " + pd00)
     val pd01 = Pokedex(Charmander)
-    println(pd01)
+    println("Pokedex02   = " + pd01)
     val pd02 = Pokedex(Bulbasaur, Squirtle)
-    println(pd02)
-    println(pd00 union pd01)
+    println("Pokedex03   = " + pd02)
+    println("00 union 01 = " + (pd00 union pd01))
   }
 }
